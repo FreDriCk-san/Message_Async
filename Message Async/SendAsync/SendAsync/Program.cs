@@ -8,17 +8,6 @@ namespace SendAsync
     class Program
     {
 
-        private static void UI(BlockingCollection<string> bCollection)
-        {
-            for (; ; )
-            {
-                //Console.Clear();
-                //Console.WriteLine("Created : ");
-                //Console.WriteLine("Processing : " + bCollection.Count);
-                //Console.WriteLine("Received : ");
-            }
-        }
-
 
         private static void CreateMessage(BlockingCollection<string> bCollection)
         {
@@ -47,14 +36,11 @@ namespace SendAsync
         {
             var bCollection = new BlockingCollection<string>();
 
-
-            var threadUI = new Thread(() => UI(bCollection));
             var threadCreate = new Thread(() => CreateMessage(bCollection));
             var threadProcess = new Thread(() => Processing(bCollection));
 
             threadCreate.Start();
             threadProcess.Start();
-            threadUI.Start();
 
 
             Console.ReadKey();
